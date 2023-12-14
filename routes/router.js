@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs');
+let connection = require('../database/config')
 
-// const bodyParser = require('body-parser');
-// const mysql = require('mysql');
-
-
-// const app = express(); 
 router.get('/', (req, res) => {
-    res.send('Hai!');
+    let sql = "SELECT * FROM customers";
+    let query = connection.query(sql, (err, rows) => {
+        if(err) throw err;
+        res.render('index', {
+            title : 'Customer Details',
+            users : rows
+        });
+    });
   });
 
 router.get('/xx', (req, res) => {
